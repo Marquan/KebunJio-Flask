@@ -78,9 +78,11 @@ app = Flask(__name__)
 
 
 
-@app.route('/')       
-def hello(): 
-    return 'HELLO'
+@app.route("/")
+def hello_world():
+    """Example Hello World route."""
+    name = "Hello!"
+    return name
 
 
 @app.route('/api/diagnose', methods=['POST'])
@@ -109,7 +111,7 @@ def diagnose():
 @app.route('/predictSpecies', methods=['GET','POST'])
 def predictSpecies():
     #ret_string = 'Reading...'
-    epoch_data = open('epoch_19_small.pkl','rb')
+    epoch_data = open('epoch_19_small_cpu.pkl','rb')
     status_dict = pickle.load(epoch_data)
     epoch_data.close()
 
@@ -158,4 +160,4 @@ def predictSpecies():
     return json.dumps(to_return)
 
 if __name__=='__main__': 
-   app.run()
+   app.run(host="0.0.0.0", port=8080)
